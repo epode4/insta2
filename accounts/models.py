@@ -5,3 +5,5 @@ from django_resized import ResizedImageField
 # Create your models here.
 class User(AbstractUser):
     profile_image = models.ImageField(upload_to='profile/')
+    
+    followings = models.ManyToManyField('self', related_name='followers', symmetrical=False)

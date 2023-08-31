@@ -10,6 +10,8 @@ class Post(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_posts')
+    
 
 class Comment(models.Model):
     content = models.CharField(max_length=100)

@@ -40,7 +40,7 @@ def comment_create(request, post_id):
     comment_form = CommentForm(request.POST)
 
     if comment_form.is_valid():
-        comment = comment_create.save(commit=False)
+        comment = comment_form.save(commit=False)
 
         comment.user = request.user
 
@@ -50,3 +50,17 @@ def comment_create(request, post_id):
         comment.save()
 
         return redirect('posts:index')
+    
+@login_required
+def like(request, post_id):
+    
+    user= request.user
+    post= Post.objects.get(id=post_id)
+    
+    if user in post.like_users.all():
+        post.like_users.remove(user)
+        
+    else:
+        post.like_users.add(user)
+        
+    return redirect('posts:index')
